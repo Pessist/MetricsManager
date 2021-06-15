@@ -11,6 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MetricsAgent.DAL.Models;
+using MetricsAgent.Controllers;
+using MetricsAgent.DAL.Interfaces;
+using MetricsAgent.DAL;
+using System.Data.SQLite;
+
+
 
 namespace MetricsAgent
 {
@@ -28,10 +35,13 @@ namespace MetricsAgent
         {
 
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetricsAgent", Version = "v1" });
             });
+            
+            services.AddSingleton<CpuMetricsController, ICpuMetricsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
