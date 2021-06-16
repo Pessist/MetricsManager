@@ -39,10 +39,10 @@ namespace MetricsAgent.DAL.Repository
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
             using var cmd = new SQLiteCommand(connection);
-            cmd.CommandText = $"SELECT * FROM cpumetrics WHERE (time > {fromTime.ToUnixTimeSeconds()}) AND (time < {toTime.ToUnixTimeSeconds()})";
+            cmd.CommandText = $"SELECT * FROM cpumetrics WHERE (time > @fromTime) and (time < @toTime)"; // Для теста cmd.CommandText = $"SELECT * FROM cpumetrics WHERE time > 50";
             cmd.Parameters.AddWithValue("@fromTime", fromSeconds);
             cmd.Parameters.AddWithValue("@toTime", toSeconds);
-            cmd.Prepare();
+            cmd.Prepare();            
 
             var returnList = new List<CpuMetric>();
             using var reader = cmd.ExecuteReader();
