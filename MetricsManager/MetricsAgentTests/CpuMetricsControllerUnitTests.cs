@@ -9,23 +9,23 @@ namespace MetricsAgentTests
     {
         private CpuMetricsController controller;
 
-        public CpuMetricsControllerUnitTests()
-        {
-            controller = new CpuMetricsController();
-        }
+        //public CpuMetricsControllerUnitTests()
+        //{
+        //    controller = new CpuMetricsController();
+        //}
 
-        [Fact]
-        public void GetMetricsFromAgent_ReturnsOk()
-        {
-            //Arrange            
-            var fromTime = DateTimeOffset.FromUnixTimeSeconds(0);
-            var toTime = DateTimeOffset.FromUnixTimeSeconds(100);
+        //[Fact]
+        //public void GetMetricsFromAgent_ReturnsOk()
+        //{
+        //    //Arrange            
+        //    var fromTime = DateTimeOffset.FromUnixTimeSeconds(0);
+        //    var toTime = DateTimeOffset.FromUnixTimeSeconds(100);
 
-            //Act
-            var result = controller.GetMetricsFromAgent(fromTime, toTime);
+        //    //Act
+        //    var result = controller.GetMetricsFromAgent(fromTime, toTime);
 
-            //Assert
-            _ = Assert.IsAssignableFrom<IActionResult>(result);
-        }
+        //    //Assert
+        //    _ = Assert.IsAssignableFrom<IActionResult>(result);
+        //}
     }    
 }

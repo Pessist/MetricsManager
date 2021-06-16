@@ -20,16 +20,12 @@ namespace MetricsAgent.DAL.Repository
             using var cmd = new SQLiteCommand(connection);
             // прописываем в команду SQL запрос на вставку данных
             cmd.CommandText = "INSERT INTO cpumetrics(value, time) VALUES(@value, @time)";
-
             // добавляем параметры в запрос из нашего объекта
             cmd.Parameters.AddWithValue("@value", item.Value);
-
-            // в таблице будем хранить время в секундах, потому преобразуем перед записью в секунды
-            // через свойство
-            cmd.Parameters.AddWithValue("@time", item.Time.ToUnixTimeSeconds());
+            // в таблице будем хранить время в секундах, потому преобразуем перед записью в секунды через свойство
+            cmd.Parameters.AddWithValue("@time", item.Time);
             // подготовка команды к выполнению
             cmd.Prepare();
-
             // выполнение команды
             cmd.ExecuteNonQuery();
 
@@ -48,8 +44,6 @@ namespace MetricsAgent.DAL.Repository
             cmd.Parameters.AddWithValue("@toTime", toSeconds);
             cmd.Prepare();
 
-            connection.Open();
-
             var returnList = new List<CpuMetric>();
             using var reader = cmd.ExecuteReader();
 
@@ -59,7 +53,7 @@ namespace MetricsAgent.DAL.Repository
                 {
                     Id = reader.GetInt32(0),
                     Value = reader.GetInt32(1),
-                    Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))                    
+                    Time = reader.GetInt64(2)
                 });
             }
             connection.Close();
