@@ -7,6 +7,12 @@ namespace MetricsAgent.Controllers.Request
 {
     public class NetworkMetricCreateRequest
     {
+        public NetworkMetricCreateRequest(DateTimeOffset fromTime, DateTimeOffset toTime)
+        {
+            FromTime = fromTime;
+            ToTime = toTime;
+        }
+
         public DateTimeOffset FromTime { get; set; }
         public DateTimeOffset ToTime { get; set; }
     }
